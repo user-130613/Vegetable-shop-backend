@@ -1,0 +1,94 @@
+create database veg_shop;
+use veg_shop;
+create table vegetables(id int primary key, name varchar(50));
+create table quantity(qid int primary key, weight_in_kilogrmam int); 
+insert into vegetables (id,name) values (1,'Potato'),
+(2,'Tomato'),
+(3,'Cabbage'),
+(4,'Cauliflower'),
+(5,'Brinjal'),
+(6,'Cucumber'),
+(7,'Carrot'),
+(8,'Peas'),
+(9,'Radish'),
+(10,'Ladys_Finger'),
+(11,'Bottle_Gourd'),
+(12,'Bitter_Gourd'),
+(13,'Capsicum'),
+(14,'Spinach'),
+(15,'Beetroot'),
+(16,'Broccoli'),
+(17,'Green_Bean'),
+(18,'Corn'),
+(19,'Drumstick'),
+(20,'Pumpkin'),
+(21,'Mushroom'),
+(22,'Apple_Gourd'),
+(23,'Pointed_Gourd'),
+(24,'Ridged_Gourd');
+select * from vegetables;
+create table quantities(qid int primary key, weight_in_kilograms int);
+UPDATE quantities SET weight_in_kilograms = CONVERT(qid, FLOAT);
+insert into quantities (qid,weight_in_kilograms) values (1,"55.0");
+insert into quantities (qid,weight_in_kilograms) values (2,"55.0"),
+(3,"55.0"),
+(4,"55.0"),
+(5,"55.0"),
+(6,"55.0"),
+(7,"55.0"),
+(8,"55.0"),
+(9,"55.0"),
+(10,"55.0"),
+(11,"55.0"),
+(12,"55.0"),
+(13,"55.0"),
+(14,"55.0"),
+(15,"55.0"),
+(16,"55.0"),
+(17,"55.0"),
+(18,"55.0"),
+(19,"55.0"),
+(20,"55.0"),
+(21,"55.0"),
+(22,"55.0"),
+(23,"55.0"),
+(24,"55.0");
+select * from quantities;
+alter table vegetables add constraint fk_veg_id foreign key (id) references quantities(qid);
+create table initial_menu1 as select v.id,v.name,q.weight_in_kilograms from vegetables v join quantities q on v.id=q.qid;
+select * from initial_menu1;
+create table sorted1_veggies as select * from initial_menu1 order by name asc;
+select * from sorted1_veggies;
+create table cart(id int,weight_in_kilograms float);
+select * from cart;
+create table costs(cid int primary key, amount float);
+insert into costs(cid,amount) values (1,"34.45"),
+(2,"23.23"),
+(3,"44.56"),
+(4,"31.23"),
+(5,"44.46"),
+(6,"44.78"),
+(7,"44.67"),
+(8,"198.34"),
+(9,"45.64"),
+(10,"55.06"),
+(11,"24.58"),
+(12,"51.83"),
+(13,"197.24"),
+(14,"104.45"),
+(15,"44.94"),
+(16,"78.83"),
+(17,"88.88"),
+(18,"123.34"),
+(19,"63.63"),
+(20,"112.86"),
+(21,"237.5"),
+(22,"34.78"),
+(23,"67.56"),
+(24,"50.42");
+create table initial_menu2 as select m.id,m.name,m.weight_in_kilograms,c.amount from initial_menu1 m join costs c on m.id=c.cid;
+select * from initial_menu2;
+alter table initial_menu2 change column amount amount_per_kg float;
+create table sorted_menu2 as select * from initial_menu2 order by name asc;
+select * from cart_565;
+select * from customer_9492660665;
